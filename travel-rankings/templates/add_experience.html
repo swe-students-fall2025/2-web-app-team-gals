@@ -5,12 +5,13 @@
 </head>
 <body>
   <h1>Add New Experience</h1>
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     <label>Title:</label><br>
     <input name="title" required><br>
 
-     <label>Picture:</label><br>
-    <input name="picture" required><br>
+    <label>Picture:</label><br>
+    <input type="file" name="picture" accept="image/*"><br>
+
 
     <label>Category:</label><br>
     <input name="category"><br>
@@ -18,7 +19,7 @@
     <label>Notes:</label><br>
     <textarea name="notes"></textarea><br>
 
-    <label>Rating (0–10):</label><br>
+    <label>Rating (0-10):</label><br>
     <input type="number" name="rating" min="0" max="10" step="0.1" required><br><br>
 
     <button type="submit">Save</button>
