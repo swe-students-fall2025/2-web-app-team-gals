@@ -8,7 +8,7 @@ A social travel app to create a smarter, more personal way for travelers to orga
 
 ## User stories
 
-[Link to User Stories](https://github.com/swe-students-fall2025/2-web-app-team-gals/issues)
+[Link to User Stories as Issues](https://github.com/swe-students-fall2025/2-web-app-team-gals/issues)
 
 ## Steps necessary to run the software
 
@@ -16,4 +16,5 @@ See instructions. Delete this line and place instructions to download, configure
 
 ## Task boards
 
-See instructions. Delete this line and place a link to the task boards here.
+[Task Board Sprint 1](https://github.com/orgs/swe-students-fall2025/projects/27)
+[Task Board Sprint 2](https://github.com/orgs/swe-students-fall2025/projects/31)
