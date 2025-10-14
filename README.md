@@ -4,11 +4,11 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-See instructions. Delete this line and place the Product Vision Statement here.
+A social travel app to create a smarter, more personal way for travelers to organize, rank, and share their experiences.
 
 ## User stories
 
-See instructions. Delete this line and place a link to the user stories here.
+[Link to User Stories](https://github.com/swe-students-fall2025/2-web-app-team-gals/issues)
 
 ## Steps necessary to run the software
 
