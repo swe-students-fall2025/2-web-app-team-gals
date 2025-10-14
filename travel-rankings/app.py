@@ -27,7 +27,11 @@ experiences = db["experiences"]
 
 @app.route("/")
 def home():
-    all_exp = list(experiences.find())
+    all_exp = list(experiences.find().sort("rating", -1))
+
+    for i, exp in enumerate(all_exp, start=1):
+        exp["rank"] = i
+
     return render_template("home.html", experiences=all_exp)
 
 @app.route("/add", methods=["GET", "POST"])
