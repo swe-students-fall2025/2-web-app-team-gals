@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beli for Travel</title>
+    <title>Beli for Travel Experiences</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <nav>
         <a href="{{ url_for('home') }}">Home</a> |
         <a href="{{ url_for('add_experience') }}">Add Experience</a>
+        
     </nav>
     <hr>
     {% block content %}{% endblock %}
