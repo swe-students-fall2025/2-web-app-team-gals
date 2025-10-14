@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Home</title>
+</head>
+<body>
+  <h1>All Experiences</h1>
+  <a href="{{ url_for('add_experience') }}">Add new experience</a>
+  <ul>
+    {% for exp in experiences %}
+      <li>
+        <strong>{{ exp.title }}</strong> ({{ exp.category }}) — Rating: {{ exp.rating }}<br>
+        {{ exp.notes }}<br>
+        <a href="{{ url_for('delete_experience', id=exp._id) }}">Delete</a>
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
