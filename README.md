@@ -18,3 +18,32 @@ See instructions. Delete this line and place instructions to download, configure
 
 [Task Board Sprint 1](https://github.com/orgs/swe-students-fall2025/projects/27)
 [Task Board Sprint 2](https://github.com/orgs/swe-students-fall2025/projects/31)
+
+## Local Setup
+
+### 1. Clone the repository
+```
+git clone https://github.com/swe-students-fall2025/2-web-app-team-gals.git
+cd 2-web-app-team-gals
+```
+### 2. Create and activate a virtual environment
+```
+python3 -m venv venv
+source venv/bin/activate     # On macOS/Linux
+# venv\Scripts\activate      # On Windows
+```
+### 3. Install Python dependencies
+```
+pip install -r requirements.txt
+```
+### 4. Create a .env file
+Create a .env file in the root of the project and add your MongoDB credentials:
+```
+MONGO_URI=your_mongodb_uri_here
+DB_NAME=your_database_name_here
+```
+### 5. Run the Flask application
+```
+cd travel-rankings
+python app.py
+```
