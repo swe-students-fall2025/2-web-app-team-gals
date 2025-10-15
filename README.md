@@ -4,7 +4,7 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-A social travel app to create a smarter, more personal way for travelers to organize, rank, and share their experiences.
+Our vision is to enhance the way people share and discover travel experiences by combining personal reflection with social connection. We aim to build a platform where travelers can rank, record, and relive their journeys while inspiring others to explore the world through authentic, community-driven insights. 
 
 ## User stories
 
