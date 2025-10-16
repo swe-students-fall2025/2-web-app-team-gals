@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Experience{% endblock %}
+{% block content %}
+
+  <h1>Edit Experience</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <label>Title:</label><br>
+    <input name="title" value="{{ exp.title }}" required><br>
+
+    <label>Picture:</label><br>
+    {% if exp.picture %}
+      <img src="{{ url_for('static', filename='uploads/' + exp.picture) }}" width="150"><br>
+    {% endif %}
+    <input type="file" name="picture" accept="image/*"><br>
+
+    <label>Category:</label><br>
+    <input name="category" value="{{ exp.category }}"><br>
+
+    <label>Notes:</label><br>
+    <textarea name="notes">{{ exp.notes }}</textarea><br>
+
+    <label>Rating (0-10):</label><br>
+    <input type="number" name="rating" value="{{ exp.rating }}" min="0" max="10" step="0.1" required><br><br>
+
+    <button type="submit">Save Changes</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Add Experience{% endblock %}
+{% block content %}
+  <h1>Add New Experience</h1>
+  
+  <form method="POST" enctype="multipart/form-data">
+    <label>Title:</label><br>
+    <input name="title" required><br>
+
+    <label>Picture:</label><br>
+    <input type="file" name="picture" accept="image/*"><br>
+
+    <label>Category:</label><br>
+    <select name="category">
+      <option value="">--Select a Category--</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Food & Drink">Food & Drink</option>
+      <option value="Culture & History">Culture</option>
+      <option value="Relaxation">Relaxation</option>
+      <option value="Nature & Outdoors">Nature & Outdoors</option>
+      <option value="City Life">City Life</option>
+      <option value="Beach">Beach</option>
+      <option value="Nightlife">Nightlife</option>
+      <option value="Shopping">Shopping</option>
+    </select><br>
+
+
+    <label>Notes:</label><br>
+    <textarea name="notes"></textarea><br>
+
+    <label>Rating (0-10):</label><br>
+    <input type="number" name="rating" min="0" max="10" step="0.1" required><br><br>
+
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

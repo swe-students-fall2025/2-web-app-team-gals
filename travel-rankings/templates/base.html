@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Beli for Travel Experiences{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   <nav class="navbar">
+    <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+    <a href="{{ url_for('your_lists') }}" class="nav-item">Your Lists</a>
+    <a href="{{ url_for('search') }}" class="nav-item">Search</a>
+    <a href="{{ url_for('profile') }}" class="nav-item">Profile</a>
+  </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+</html>
