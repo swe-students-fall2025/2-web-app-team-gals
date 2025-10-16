@@ -1,8 +1,9 @@
-{% extends "base.html" %}
-
-{% block title %}Edit Experience{% endblock %}
-{% block content %}
-
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Experience</title>
+</head>
+<body>
   <h1>Edit Experience</h1>
   <form method="POST" enctype="multipart/form-data">
     <label>Title:</label><br>
@@ -20,9 +21,10 @@
     <label>Notes:</label><br>
     <textarea name="notes">{{ exp.notes }}</textarea><br>
 
-    <label>Rating (0-10):</label><br>
+    <label>Rating (0–10):</label><br>
     <input type="number" name="rating" value="{{ exp.rating }}" min="0" max="10" step="0.1" required><br><br>
 
     <button type="submit">Save Changes</button>
   </form>
-{% endblock %}
+</body>
+</html>
