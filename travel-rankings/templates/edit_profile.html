@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Edit Profile</h1>
+    <form method="POST">
+        <label>Name:</label><br>
+        <input name="name" value="{{ user.name }}"><br>
+        <label>Email:</label><br>
+        <input name="email" value="{{ user.email }}"><br>
+        <button type="submit">Save Changes</button>
+    </form>
+{% endblock %}

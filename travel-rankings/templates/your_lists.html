@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Your Lists{% endblock %}
+{% block content %}
+  <h1>Your Lists/bucketlist</h1>
+
+  <!-- add new experience -->
+  <a href="{{ url_for('add_experience') }}">Add New Experience</a>
+  <hr>
+
+  {% for exp in experiences %}
+    <div class="experience">
+      <h3>#{{ exp.rank }} — {{ exp.title }}</h3>
+      <p>Category: {{ exp.category }}</p>
+      <p>Rating: {{ exp.rating }}</p>
+      <p>{{ exp.notes }}</p>
+      {% if exp.picture %}
+        <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" width="150">
+      {% endif %}
+    </div>
+  {% endfor %}
+
+{% endblock %}
