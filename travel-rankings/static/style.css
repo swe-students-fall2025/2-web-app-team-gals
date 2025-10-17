@@ -98,3 +98,20 @@ nav a {
 nav a:last-child {
   margin-right: 0;
 }
+
+.complete-form input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.complete-form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  justify-content: flex-start;
+  margin: 10px 0 0 0;
+}

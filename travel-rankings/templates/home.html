@@ -8,7 +8,7 @@
 
   <nav>
     <a href="{{ url_for('home') }}">Home</a>
-    <a href="{{ url_for('your_list') }}">Bucketlist</a>
+    <a href="{{ url_for('your_list') }}">Your List</a>
   </nav>
 
   <h1>My Travel Experiences</h1>
@@ -25,6 +25,12 @@
       {% if exp.picture %}
         <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" width="150">
       {% endif %}
+      <div>
+        <a href="{{ url_for('edit_experience', id=exp._id) }}">
+          <button type="button">Edit</button>
+        </a>
+      </div>
+      
     </div>
   {% endfor %}
 
