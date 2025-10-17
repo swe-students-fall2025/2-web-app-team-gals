@@ -131,5 +131,58 @@ def add_bucketlist():
 
     return render_template("add_bucketlist.html")
 
+@app.route("/bucketlist/complete/<id>", methods=["POST"])
+def complete_bucketlist(id):
+    item = bucketlist.find_one({"_id": ObjectId(id)})
+    if not item:
+        return "Item not found", 404
+
+    new_exp = {
+        "title": item["title"],
+        "category": item.get("category", ""),
+        "notes": item.get("notes", ""),
+        "rating": float(item.get("rating", 0)),
+        "picture": item.get("picture")
+    }
+    experiences.insert_one(new_exp)
+
+    bucketlist.delete_one({"_id": ObjectId(id)})
+
+    return redirect(url_for("your_list"))
+
+@app.route("/bucketlist/edit/<id>", methods=["GET", "POST"])
+def edit_bucketlist(id):
+    item = bucketlist.find_one({"_id": ObjectId(id)})
+    if not item:
+        return "Item not found", 404
+
+    if request.method == "POST":
+        updated = {
+            "title": request.form["title"],
+            "category": request.form["category"],
+            "notes": request.form["notes"],
+            "rating": float(request.form["rating"])
+        }
+
+        picture = request.files.get("picture")
+        if picture and picture.filename:
+            filename = secure_filename(picture.filename)
+            picture.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+            updated["picture"] = filename
+        else:
+            updated["picture"] = item.get("picture")
+
+        bucketlist.update_one({"_id": ObjectId(id)}, {"$set": updated})
+        return redirect(url_for("your_list"))
+
+    return render_template("edit_bucketlist.html", exp=item)
+
+
+
+@app.route("/bucketlist/delete/<id>")
+def delete_bucketlist(id):
+    bucketlist.delete_one({"_id": ObjectId(id)})
+    return redirect(url_for("your_list"))
+
 if __name__ == "__main__":
     app.run(debug=True)

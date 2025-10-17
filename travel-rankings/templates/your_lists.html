@@ -9,15 +9,32 @@
   <hr>
 
   {% for exp in bucketList %}
-    <div class="experience">
-      <h3>#{{ exp.rank }} — {{ exp.title }}</h3>
-      <p>Category: {{ exp.category }}</p>
-      <p>Rating: {{ exp.rating }}</p>
-      <p>{{ exp.notes }}</p>
-      {% if exp.picture %}
-        <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" width="150">
-      {% endif %}
-    </div>
-  {% endfor %}
+  <div class="experience">
+    <h3>#{{ exp.rank }} — {{ exp.title }}</h3>
+    <p>Category: {{ exp.category }}</p>
+    <p>{{ exp.notes }}</p>
+    <p>{{ exp.rating }}</p>
+    {% if exp.picture %}
+      <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" width="150">
+    {% endif %}
+
+    <form class='complete-form' action="{{ url_for('complete_bucketlist', id=exp._id) }}" method="POST" style="margin-top:10px;">
+      <label>
+        <input type="checkbox" name="completed" onchange="this.form.submit()">
+        Completed
+      </label>
+    </form>
+    
+    <div style="margin-top:10px;">
+    <a href="{{ url_for('edit_bucketlist', id=exp._id) }}">
+      <button type="button">Edit</button>
+    </a>
+    <a href="{{ url_for('delete_bucketlist', id=exp._id) }}" onclick="return confirm('Are you sure?');">
+      <button type="button">Delete</button>
+    </a>
+  </div>
+  </div>
+{% endfor %}
+
 
 {% endblock %}
