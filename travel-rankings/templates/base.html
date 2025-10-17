@@ -2,16 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Beli for Travel Experiences</title>
+    <title>{% block title %}Travel Rankings{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <nav>
-        <a href="{{ url_for('home') }}">Home</a> |
-        <a href="{{ url_for('your_list') }}">Your List</a>
-        
+    <nav class="navbar">
+        {% if 'user_id' in session %}
+            <a href="{{ url_for('home') }}" class="nav-item">Home</a>
+            <a href="{{ url_for('your_lists') }}" class="nav-item">Your Lists</a>
+            <a href="{{ url_for('search') }}" class="nav-item">Search</a>
+            <a href="{{ url_for('profile') }}" class="nav-item">Profile</a>
+            <a href="{{ url_for('logout') }}" class="nav-item">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="nav-item">Login</a>
+            <a href="{{ url_for('signup') }}" class="nav-item">Sign Up</a>
+        {% endif %}
     </nav>
+
     <hr>
-    {% block content %}{% endblock %}
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
 </body>
 </html>
