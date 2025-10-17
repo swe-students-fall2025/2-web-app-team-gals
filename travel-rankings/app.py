@@ -24,6 +24,7 @@ except Exception as e:
 
 db = client[DB_NAME]
 experiences = db["experiences"]
+bucketlist = db["bucketlist"]
 
 @app.route("/")
 def home():
@@ -94,6 +95,41 @@ def delete_experience(id):
     experiences.delete_one({"_id": ObjectId(id)})
     return redirect(url_for("home"))
 
+# add to bucket list/view bucketlist
+@app.route("/yourlist")
+def your_list():
+    all_items = list(bucketlist.find().sort("rating", -1))
+
+    for i, item in enumerate(all_items, start=1):
+        item["rank"] = i
+
+    return render_template("your_lists.html", bucketList=all_items)
+
+@app.route("/add_bucketlist", methods=["GET", "POST"])
+def add_bucketlist():
+    if request.method == "POST":
+        title = request.form["title"]
+        category = request.form["category"]
+        notes = request.form["notes"]
+        rating = float(request.form["rating"])
+
+        picture = request.files.get("picture")
+        filename = None
+        if picture and picture.filename:
+            filename = secure_filename(picture.filename)
+            picture.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+
+        new_item = {
+            "title": title,
+            "category": category,
+            "notes": notes,
+            "rating": rating,
+            "picture": filename
+        }
+        bucketlist.insert_one(new_item)
+        return redirect(url_for("your_list"))
+
+    return render_template("add_bucketlist.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

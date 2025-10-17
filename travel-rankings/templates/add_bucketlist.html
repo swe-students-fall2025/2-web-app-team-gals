@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Add to Bucketlist{% endblock %}
+{% block content %}
+  <h1>Add to Your Bucketlist</h1>
+
+  <a href="{{ url_for('your_list') }}">← Back to Your List</a>
+  <hr>
+
+  <form method="POST" enctype="multipart/form-data" class="form">
+    <label for="title">Title:</label><br>
+    <input id="title" name="title" required><br>
+
+    <label for="picture">Picture:</label><br>
+    <input id="picture" type="file" name="picture" accept="image/*"><br>
+
+    <label for="category">Category:</label><br>
+    <input id="category" name="category"><br>
+
+    <label for="notes">Notes:</label><br>
+    <textarea id="notes" name="notes" rows="4"></textarea><br>
+
+    <label for="rating">Rating (0–10):</label><br>
+    <input id="rating" type="number" name="rating" min="0" max="10" step="0.1" required><br><br>
+
+    <button type="submit">Save</button>
+  </form>
+{% endblock %}

@@ -2,13 +2,13 @@
 
 {% block title %}Your Lists{% endblock %}
 {% block content %}
-  <h1>Your Lists/bucketlist</h1>
+  <h1>Your Bucketlist</h1>
 
   <!-- add new experience -->
-  <a href="{{ url_for('add_experience') }}">Add New Experience</a>
+  <a href="{{ url_for('add_bucketlist') }}">Add To Your Bucketlist</a>
   <hr>
 
-  {% for exp in experiences %}
+  {% for exp in bucketList %}
     <div class="experience">
       <h3>#{{ exp.rank }} — {{ exp.title }}</h3>
       <p>Category: {{ exp.category }}</p>
