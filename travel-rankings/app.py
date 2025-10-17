@@ -27,16 +27,69 @@ db = client[DB_NAME]
 users = db["users"]
 experiences = db["experiences"]
 bucketlist = db["bucketlist"]
+friend_experiences = db["friend_experiences"]
 
+
+@app.route("/api/feed")
+def api_feed():
+    all_exp = list(experiences.find({}, {"_id": 0}).sort("rating", -1))
+    for i, exp in enumerate(all_exp, start=1):
+        exp["rank"] = i
+    return jsonify(all_exp)
 
 @app.route("/")
 def home():
     if "user_id" not in session:
         return redirect(url_for("login"))
-    all_exp = list(experiences.find({"user_id": session["user_id"]}).sort("rating", -1))
+    
+    # User's own experiences
+    user_exps = list(experiences.find({"user_id": session["user_id"]}))
+    
+    # Friend experiences (exclude current user)
+    friends_exps = list(friend_experiences.find({"user_id": {"$ne": session["user_id"]}}))
+    
+    # Combine
+    all_exp = user_exps + friends_exps
+    
+    # Sort by rating descending
+    all_exp.sort(key=lambda x: x.get("rating", 0), reverse=True)
+    
+    # Add rank
     for i, exp in enumerate(all_exp, start=1):
         exp["rank"] = i
+    
     return render_template("home.html", experiences=all_exp)
+
+@app.route("/populate_friends_feed")
+def populate_friends_feed():
+    from datetime import datetime, timezone
+    friend_experiences.insert_many([
+        {
+            "title": "Skiing in Alps",
+            "notes": "Snow was perfect!",
+            "rating": 5,
+            "picture": None,
+            "friend_name": "Alice",
+            "created_at": datetime.now(timezone.utc)
+        },
+        {
+            "title": "Surfing in Hawaii",
+            "notes": "Caught my first wave!",
+            "rating": 4,
+            "picture": None,
+            "friend_name": "Bob",
+            "created_at": datetime.now(timezone.utc)
+        },
+        {
+            "title": "Tokyo Food Tour",
+            "notes": "Sushi heaven",
+            "rating": 5,
+            "picture": None,
+            "friend_name": "Charlie",
+            "created_at": datetime.now(timezone.utc)
+        }
+    ])
+    return "Friend feed populated!"
 
 # SIGN UP/LOGIN/AUTHENTICATION
 @app.route("/signup", methods=["GET", "POST"])
