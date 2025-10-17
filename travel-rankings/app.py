@@ -242,5 +242,13 @@ def complete_bucketlist(id):
     bucketlist.delete_one({"_id": ObjectId(id)})
     return redirect(url_for("your_lists"))
 
+# SEARCH 
+@app.route('/search')
+def search():
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+    return render_template('search.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
