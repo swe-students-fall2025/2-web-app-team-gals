@@ -21,6 +21,9 @@
             <button>💬 Comment</button>
           </div>
         </div>
+        <form class='feed-form' action="{{ url_for('feed_to_bucket', id=exp._id|string) }}" method="POST" style="margin-top:10px;">
+          <button type="submit">Add To Bucketlist</button>
+        </form>
       </div>
     {% else %}
       <p class="no-posts">No posts from your friends yet! 🌍  

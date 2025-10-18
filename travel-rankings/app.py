@@ -230,14 +230,14 @@ def delete_experience(id):
     return redirect(url_for(next_page))
 
 # BUCKETLIST
-@app.route("/your_lists")
-def your_lists():
+@app.route("/your_bucketlist")
+def your_bucketlist():
     if "user_id" not in session:
         return redirect(url_for("login"))
     all_items = list(bucketlist.find({"user_id": session["user_id"]}).sort("rating", -1))
     for i, item in enumerate(all_items, start=1):
         item["rank"] = i
-    return render_template("your_lists.html", bucketList=all_items)
+    return render_template("your_bucketlist.html", bucketList=all_items)
 
 @app.route("/add_bucketlist", methods=["GET", "POST"])
 def add_bucketlist():
@@ -262,8 +262,8 @@ def add_bucketlist():
             "user_id": session["user_id"]
         }
         bucketlist.insert_one(new_item)
-        return redirect(url_for("your_lists"))
-    return render_template("add_bucketlist.html")
+        return redirect(url_for("your_bucketlist"))
+    return render_template("add_bucketlist.html", exp={})
 
 @app.route("/bucketlist/edit/<id>", methods=["GET", "POST"])
 def edit_bucketlist(id):
@@ -287,7 +287,7 @@ def edit_bucketlist(id):
         else:
             updated["picture"] = item.get("picture")
         bucketlist.update_one({"_id": ObjectId(id)}, {"$set": updated})
-        return redirect(url_for("your_lists"))
+        return redirect(url_for("your_bucketlist"))
     return render_template("edit_bucketlist.html", exp=item)
 
 @app.route("/bucketlist/delete/<id>")
@@ -295,7 +295,7 @@ def delete_bucketlist(id):
     if "user_id" not in session:
         return redirect(url_for("login"))
     bucketlist.delete_one({"_id": ObjectId(id)})
-    return redirect(url_for("your_lists"))
+    return redirect(url_for("your_bucketlist"))
 
 @app.route("/bucketlist/complete/<id>", methods=["POST"])
 def complete_bucketlist(id):
@@ -315,7 +315,30 @@ def complete_bucketlist(id):
     }
     experiences.insert_one(new_exp)
     bucketlist.delete_one({"_id": ObjectId(id)})
-    return redirect(url_for("your_lists"))
+    return redirect(url_for("your_bucketlist"))
+
+@app.route("/feed_to_bucket/<id>", methods=["POST"])
+def feed_to_bucket(id):
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    friend_exp = friend_experiences.find_one({"_id": ObjectId(id)})
+    if not friend_exp:
+        return "Friend experience not found", 404
+
+    new_bucket_item = {
+        "title": friend_exp["title"],
+        "category": friend_exp.get("category", ""),
+        "notes": friend_exp.get("notes", ""),
+        "rating": float(friend_exp.get("rating", 0)),
+        "picture": friend_exp.get("picture"),
+        "user_id": session["user_id"],
+        "created_at": datetime.now(timezone.utc)
+    }
+
+    bucketlist.insert_one(new_bucket_item)
+
+    return redirect(url_for("your_bucketlist"))
 
 # SEARCH 
 @app.route('/search', methods =["GET", "POST"])
@@ -363,6 +386,15 @@ def search():
 
     if request.method == "GET": 
         return render_template('search.html', experiences = list(experiences.find()))
+
+@app.route('/your_lists')
+def your_lists():
+    all_exp = list(experiences.find().sort("rating", -1))
+
+    for i, exp in enumerate(all_exp, start=1):
+        exp["rank"] = i
+
+    return render_template("your_lists.html", experiences=all_exp)
 
 
 if __name__ == "__main__":
