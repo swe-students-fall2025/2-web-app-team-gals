@@ -2,79 +2,6 @@
 {% block title %}Feed{% endblock %}
 
 {% block content %}
-<style>
-  /* Feed section styling */
-  .feed {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  /* Grid layout for cards */
-  .feed-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
-
-  /* Individual card */
-  .feed-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .feed-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  }
-
-  /* Image in card */
-  .feed-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-
-  /* Card content */
-  .feed-info {
-    padding: 1rem;
-  }
-
-  .feed-info h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
-  }
-
-  .feed-info p {
-    margin: 0.3rem 0;
-    font-size: 0.95rem;
-    color: #555;
-  }
-
-  /* Actions buttons */
-  .feed-actions {
-    margin-top: 0.8rem;
-    display: flex;
-    gap: 0.5rem;
-  }
-
-  .feed-actions button {
-    border: none;
-    background: grey;
-    padding: 0.5rem 0.8rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.2s;
-  }
-
-  .feed-actions button:hover {
-    background: #e0e0e0;
-  }
-</style>
 
 <section class="feed">
   <h2>For You</h2>
@@ -88,7 +15,7 @@
           <h3>{{ exp.title }}</h3>
           <p>Ranked #{{ exp.rank }} · "{{ exp.notes }}"</p>
           {% if exp.get('rating') %}
-            <p>⭐ {{ exp.rating }}/5</p>
+            <p>⭐ {{ exp.rating }}/10</p>
           {% endif %}
           <div class="feed-actions">
             <button>❤️ Like</button>
