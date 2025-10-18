@@ -2,7 +2,6 @@
 {% block title %}Feed{% endblock %}
 
 {% block content %}
-
 <section class="feed">
   <h2>For You</h2>
   <div class="feed-grid">
@@ -23,6 +22,9 @@
           </div>
         </div>
       </div>
+    {% else %}
+      <p class="no-posts">No posts from your friends yet! 🌍  
+      Explore and connect to see their latest adventures.</p>
     {% endfor %}
   </div>
 </section>

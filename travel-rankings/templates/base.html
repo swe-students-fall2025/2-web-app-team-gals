@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Travel Rankings{% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='tiles.css') }}">
 </head>
 <body>
-    <h1 class = "title">PLACEHOLDER NAME</h1>
+    <h1 class = "title">ROAM</h1>
     <nav class="navbar">
             <a href="{{ url_for('home') }}" class="nav-item">Home</a>
             <a href="{{ url_for('your_lists') }}" class="nav-item">Your Lists</a>

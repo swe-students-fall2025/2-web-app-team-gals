@@ -16,14 +16,33 @@
   {% endif %}
   <input type="file" name="picture" accept="image/*">
 
-  <label>Category:</label>
-  <input name="category" value="{{ exp.category }}">
+  <label for="category">Category:</label><br>
+      <label>Category:</label><br>
+      <select name="category" required>
+        <option value="" disabled {% if not exp.category %}selected{% endif %}>Select a category</option>
+        <option value="City" {% if exp.category = "City" %}selected{% endif %}>City</option>
+        <option value="Nature" {% if exp.category = "Nature" %}selected{% endif %}>Nature</option>
+        <option value="Beach" {% if exp.category = "Beach" %}selected{% endif %}>Beach</option>
+        <option value="Food" {% if exp.category = "Food" %}selected{% endif %}>Food</option>
+        <option value="Adventure" {% if exp.category = "Adventure" %}selected{% endif %}>Adventure</option>
+        <option value="Culture" {% if exp.category = "Culture" %}selected{% endif %}>Culture</option>
+        <option value="Relaxation" {% if exp.category = "Relaxation" %}selected{% endif %}>Relaxation</option>
+        <option value="Other" {% if exp.category = "Other" %}selected{% endif %}>Other</option>
+      </select><br>
 
   <label>Notes:</label>
   <textarea name="notes">{{ exp.notes }}</textarea>
 
-  <label>Rating (0–10):</label>
-  <input type="number" name="rating" min="0" max="10" step="0.1" value="{{ exp.rating }}" required>
+  <label>Rating (0–10):</label><br>
+    <input 
+      type="number" 
+      name="rating" 
+      min="0" 
+      max="10" 
+      step="0.1" 
+      required 
+      oninput="validity.valid || (value='');"
+    /><br><br>
 
   <button type="submit">Save</button>
 </form>
