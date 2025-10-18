@@ -7,22 +7,45 @@
 <body>
   <h1>Add New Experience</h1>
   <form method="POST" enctype="multipart/form-data">
-    <label>Title:</label><br>
-    <input name="title" required><br>
+  <input type="hidden" name="next" value="{{ next }}">
 
-    <label>Picture:</label><br>
-    <input type="file" name="picture" accept="image/*"><br>
+  <label>Title:</label><br>
+  <input name="title" required><br>
 
-    <label>Category:</label><br>
-    <input name="category"><br>
+  <label>Picture:</label><br>
+  <input type="file" name="picture" accept="image/*"><br>
 
-    <label>Notes:</label><br>
-    <textarea name="notes"></textarea><br>
+  <label>Category:</label><br>
+  <select name="category" required>
+      <option value="" disabled selected>Select a category</option>
+      <option value="City">City</option>
+      <option value="Nature">Nature</option>
+      <option value="Beach">Beach</option>
+      <option value="Food">Food</option>
+      <option value="Adventure">Adventure</option>
+      <option value="Culture">Culture</option>
+      <option value="Relaxation">Relaxation</option>
+      <option value="Other">Other</option>
+  </select><br>
 
-    <label>Rating (0-10):</label><br>
-    <input type="number" name="rating" min="0" max="10" step="0.1" required><br><br>
+  <label>Notes:</label><br>
+  <textarea name="notes"></textarea><br>
 
-    <button type="submit">Save</button>
-  </form>
+  <label>Rating (0–10):</label><br>
+    <input 
+      type="number" 
+      name="rating" 
+      min="0" 
+      max="10" 
+      step="0.1" 
+      required 
+      oninput="validity.valid || (value='');"
+    /><br><br>
+
+  <div class="form-buttons">
+  <button type="submit" class="save-btn">Save Experience</button>
+  <button type="submit" name="cancel" formnovalidate class="cancel-btn">Cancel</button>
+</div>
+</form>
 </body>
 </html>

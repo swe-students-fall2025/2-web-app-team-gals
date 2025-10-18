@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from flask import Flask, jsonify, render_template, request, redirect, url_for, session
 from datetime import datetime, timezone
 from pymongo import MongoClient, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
@@ -153,16 +153,25 @@ def edit_profile():
 def add_experience():
     if "user_id" not in session:
         return redirect(url_for("login"))
+
+    # Next is now a FULL URL (e.g., "/profile"), not an endpoint name
+    next_url = request.form.get("next") or request.args.get("next") or url_for("home")
+
     if request.method == "POST":
-        title = request.form["title"]
-        category = request.form["category"]
-        notes = request.form["notes"]
-        rating = float(request.form["rating"])
+        # Cancel: do NOT save; just go back
+        if "cancel" in request.form:
+            return redirect(next_url)
+
+        title = request.form.get("title", "")
+        category = request.form.get("category", "")
+        notes = request.form.get("notes", "")
+        rating = float(request.form.get("rating", 0) or 0)
         picture = request.files.get("picture")
         filename = None
         if picture and picture.filename:
             filename = secure_filename(picture.filename)
             picture.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+
         new_exp = {
             "title": title,
             "category": category,
@@ -173,24 +182,32 @@ def add_experience():
             "created_at": datetime.now(timezone.utc)
         }
         experiences.insert_one(new_exp)
-        return redirect(url_for("home"))
-    return render_template("add_experience.html")
+        return redirect(next_url)
+
+    return render_template("add_experience.html", next=request.args.get("next", url_for("home")))
 
 @app.route("/edit/<id>", methods=["GET", "POST"])
 def edit_experience(id):
     if "user_id" not in session:
         return redirect(url_for("login"))
+
     exp = experiences.find_one({"_id": ObjectId(id)})
     if not exp:
         return "Experience not found", 404
-    next_page = request.args.get('next', 'profile')
+
+    next_page = request.args.get("next", request.form.get("next", "profile"))
+
     if request.method == "POST":
+        if "cancel" in request.form:
+            return redirect(url_for(next_page) if next_page in ["home", "profile", "feed", "your_lists"] else url_for("home"))
+
         updated = {
-            "title": request.form["title"],
-            "category": request.form["category"],
-            "notes": request.form["notes"],
-            "rating": float(request.form["rating"])
+            "title": request.form.get("title", ""),
+            "category": request.form.get("category", ""),
+            "notes": request.form.get("notes", ""),
+            "rating": float(request.form.get("rating", 0) or 0)
         }
+
         picture = request.files.get("picture")
         if picture and picture.filename:
             filename = secure_filename(picture.filename)
@@ -198,9 +215,11 @@ def edit_experience(id):
             updated["picture"] = filename
         else:
             updated["picture"] = exp.get("picture")
+
         experiences.update_one({"_id": ObjectId(id)}, {"$set": updated})
-        return redirect(url_for(next_page))
-    return render_template("edit_experience.html", exp=exp)
+        return redirect(url_for(next_page) if next_page in ["home", "profile", "feed", "your_lists"] else url_for("home"))
+
+    return render_template("edit_experience.html", exp=exp, next=next_page)
 
 @app.route("/delete/<id>")
 def delete_experience(id):

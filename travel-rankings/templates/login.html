@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block title %}Login{% endblock %}
+
 {% block content %}
+  <div class="login-container">
     <h1>Login</h1>
-    <form method="POST">
-    <input name="email" placeholder="Email" required><br>
-    <input name="password" type="password" placeholder="Password" required><br>
-    <button type="submit">Login</button>
+
+    <form method="POST" class="login-form">
+      <input name="email" placeholder="Email" required><br>
+      <input name="password" type="password" placeholder="Password" required><br>
+      <button type="submit" class="btn-login">Login</button>
     </form>
-    <a href="{{ url_for('signup') }}">Create an account</a>
+
+    <div class="signup-section">
+      <a href="{{ url_for('signup') }}" class="signup-link">Don't have an account?</a>
+      <!-- <a href="{{ url_for('signup') }}" class="btn-signup">Create an account</a> -->
+    </div>
+  </div>
 {% endblock %}
-
-
 
