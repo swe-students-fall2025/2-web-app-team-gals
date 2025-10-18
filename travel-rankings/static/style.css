@@ -54,6 +54,7 @@ form {
   border-radius: 8px;
   max-width: 400px;
   margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 label {
@@ -62,7 +63,7 @@ label {
   margin-top: 10px;
 }
 
-input, textarea, button {
+input, textarea, button, select {
   width: 100%;
   padding: 8px;
   margin-top: 5px;
@@ -70,6 +71,7 @@ input, textarea, button {
   border-radius: 4px;
   font-size: 14px;
   box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 button {
@@ -77,6 +79,7 @@ button {
   color: white;
   font-weight: bold;
   cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 nav {
@@ -86,6 +89,7 @@ nav {
   
   display: flex;
   align-items: center; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 nav a {
@@ -115,3 +119,38 @@ nav a:last-child {
   justify-content: flex-start;
   margin: 10px 0 0 0;
 }
+
+.filter-bar { 
+  display: flex; 
+  align-items: center;
+  gap: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px; 
+  padding: 10px 10px;
+  width: 80%;
+  max-width: 80%;
+  margin: 10px 0px;
+  height: 15px;
+  justify-content: space-between;
+}
+
+.filter-bar input, select, input::placeholder {
+  padding: 3px;
+  margin: 5px 15px 5px 4px;
+
+}
+
+.filter-bar label { 
+  font-size: 12px; 
+  margin: 9px 0px;
+}
+
+.filter-bar button { 
+  align-items: right;
+  justify-content: center;
+  margin: 5px 2px;
+  font-size: 12px;
+  padding: 6px;
+}
+

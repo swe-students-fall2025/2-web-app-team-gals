@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from datetime import datetime, timezone
-from pymongo import MongoClient
+from pymongo import MongoClient, DESCENDING, ASCENDING
 from bson.objectid import ObjectId
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
@@ -57,7 +57,7 @@ def home():
     # Add rank
     for i, exp in enumerate(all_exp, start=1):
         exp["rank"] = i
-    
+
     return render_template("home.html", experiences=all_exp)
 
 @app.route("/populate_friends_feed")
@@ -67,23 +67,26 @@ def populate_friends_feed():
         {
             "title": "Skiing in Alps",
             "notes": "Snow was perfect!",
-            "rating": 5,
+            "category": "Adventure",
+            "rating": 10,
             "picture": None,
             "friend_name": "Alice",
             "created_at": datetime.now(timezone.utc)
         },
         {
             "title": "Surfing in Hawaii",
+            "category": "Beach",
             "notes": "Caught my first wave!",
-            "rating": 4,
+            "rating": 9,
             "picture": None,
             "friend_name": "Bob",
             "created_at": datetime.now(timezone.utc)
         },
         {
             "title": "Tokyo Food Tour",
+            "category": "Food",
             "notes": "Sushi heaven",
-            "rating": 5,
+            "rating": 10,
             "picture": None,
             "friend_name": "Charlie",
             "created_at": datetime.now(timezone.utc)
@@ -296,11 +299,51 @@ def complete_bucketlist(id):
     return redirect(url_for("your_lists"))
 
 # SEARCH 
-@app.route('/search')
+@app.route('/search', methods =["GET", "POST"])
 def search():
     if "user_id" not in session:
         return redirect(url_for("login"))
-    return render_template('search.html')
+    
+    if request.method == "POST": 
+        title = request.form.get("title", "").strip()
+        category = request.form.get("category", "").strip()
+        keywords = [k.strip() for k in request.form.get("keyword", "").split(" ") if k.strip()]
+        rating_order = request.form.get("rating", "")
+
+        query = {}
+
+        if title: 
+            query["title"] = {"$regex": title, "$options": "i"}
+
+        if keywords: 
+            keyword_clauses = []
+            for kw in keywords: 
+                regex = {"$regex": kw, "$options": "i"}
+                keyword_clauses.extend([
+                    {"title": regex},
+                    {"category": regex},
+                    {"notes": regex} 
+                ])
+            query["$or"] = keyword_clauses
+
+        if category: 
+            query["category"] = {"$regex": category, "$options": "i"}
+
+        sort_order = None
+        if rating_order == "highLow":
+            sort_order = [("rating", DESCENDING)]
+        elif rating_order == 'lowHigh':
+            sort_order = [("rating", ASCENDING)]
+
+        if sort_order: 
+            filtered_exp = list(experiences.find(query).sort(sort_order))
+        else: 
+            filtered_exp = list(experiences.find(query))
+        
+        return render_template('search.html', experiences = filtered_exp)
+
+    if request.method == "GET": 
+        return render_template('search.html', experiences = list(experiences.find()))
 
 
 if __name__ == "__main__":

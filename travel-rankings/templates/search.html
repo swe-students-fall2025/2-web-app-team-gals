@@ -3,7 +3,62 @@
 {% block title %}Search{% endblock %}
 {% block content %}
 
-  <h1>Search</h1>
 
+<section class="feed">
+  <h2>Search</h2>
+
+  <form method="POST" enctype="multipart/form-data"  class="filter-bar">
+    <div style="display: flex; align-items: center;">
+      <input id="keyword" name="keyword" placeholder="Search experiences" style="width: 150%">
+      <label for="title">Title</label>
+      <input id="title" name="title"> 
+
+      <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="" disabled selected></option>
+            <option value="City">City</option>
+            <option value="Nature">Nature</option>
+            <option value="Beach">Beach</option>
+            <option value="Food">Food</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Culture">Culture</option>
+            <option value="Relaxation">Relaxation</option>
+          </select> 
+
+
+      <label for="rating">Rating</label>
+      <select id="rating" name="rating">
+        <option value="" disabled selected></option>
+        <option value="highLow">Highest to Lowest</option>
+        <option value="lowHigh">Lowest to Highest</option>
+      </select>
+    </div>
+
+    <div>
+      <button type="submit">Search</button>
+    </div>
+  </form>
+</section>
+  
+  <div class="feed-grid">
+    {% for exp in experiences %}
+      <div class="feed-card">
+        {% if exp.picture %}
+          <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" />
+        {% endif %}
+        <div class="feed-info">
+          <h3>{{ exp.title }}</h3>
+          <p>Ranked #{{ exp.rank }} · "{{ exp.notes }}"</p>
+          {% if exp.get('rating') %}
+            <p>⭐ {{ exp.rating }}/10</p>
+          {% endif %}
+          <div class="feed-actions">
+            <button>❤️ Like</button>
+            <button>💬 Comment</button>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 
 {% endblock %}
