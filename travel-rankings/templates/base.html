@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='tiles.css') }}">
 </head>
 <body>
-    <h1 class = "title">ROAM</h1>
+    <h1 class="title">
+    <a href="{{ url_for('home') }}">ROAM</a>
+    </h1>
     <nav class="navbar">
             <a href="{{ url_for('home') }}" class="nav-item">Home</a>
             <a href="{{ url_for('your_lists') }}" class="nav-item">Your Lists</a>
