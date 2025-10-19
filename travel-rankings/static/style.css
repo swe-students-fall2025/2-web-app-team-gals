@@ -11,7 +11,6 @@ body {
 
 h1, h2, h3 {
   color: #2c3e50;
-  margin: 0;
 }
 
 h1 {
@@ -201,7 +200,6 @@ label {
 input, textarea, select {
   width: 100%;
   padding: 8px;
-  margin-top: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
@@ -255,6 +253,7 @@ button, .save-btn, .cancel-btn {
   font-weight: bold;
   font-size: 15px;
   transition: all 0.2s ease;
+  margin: 10px 0 0 0;
 }
 
 button:hover, .save-btn:hover {
@@ -276,6 +275,17 @@ button:hover, .save-btn:hover {
 .cancel-btn:hover {
   background-color: #ccc;
   transform: translateY(-2px);
+}
+
+.add-bucketlist-button { 
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+  border-radius: 50%;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.2s ease;
 }
 
 /* ---------------------------- */
@@ -442,8 +452,51 @@ button:hover, .save-btn:hover {
     border: none;
     box-shadow: none;
     background: none;
-    margin: 10px 0 0 0;
+    margin: 10px 0 0 6px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
+    padding: 10px;
+}
+
+/* ---------------------------- */
+/* SEARCH/FILTER BAR - DO NOT REMOVE */
+/* ---------------------------- */
+.filter-bar { 
+  display: flex; 
+  align-items: center;
+  gap: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px; 
+  padding: 10px 10px;
+  width: 98.4%;
+  max-width: 98.4%;
+  margin: 10px 0px;
+  height: 15px;
+  justify-content: space-between;
+}
+
+.filter-bar input, select, input::placeholder {
+  padding: 3px;
+  margin: 5px 15px 5px 4px;
+}
+
+.filter-bar label { 
+  font-size: 12px; 
+  margin: 9px 0px;
+}
+
+.filter-bar button { 
+  align-items: right;
+  justify-content: center;
+  margin: 5px 2px;
+  font-size: 12px;
+  padding: 6px;
+}
+
+.filter-bar { 
+  display: flex; 
+  align-items: center;
+  gap: 20px;
 }
