@@ -346,46 +346,50 @@ def search():
     if "user_id" not in session:
         return redirect(url_for("login"))
     
-    if request.method == "POST": 
-        title = request.form.get("title", "").strip()
-        category = request.form.get("category", "").strip()
-        keywords = [k.strip() for k in request.form.get("keyword", "").split(" ") if k.strip()]
-        rating_order = request.form.get("rating", "")
-
-        query = {}
-
-        if title: 
-            query["title"] = {"$regex": title, "$options": "i"}
-
-        if keywords: 
-            keyword_clauses = []
-            for kw in keywords: 
-                regex = {"$regex": kw, "$options": "i"}
-                keyword_clauses.extend([
-                    {"title": regex},
-                    {"category": regex},
-                    {"notes": regex} 
-                ])
-            query["$or"] = keyword_clauses
-
-        if category: 
-            query["category"] = {"$regex": category, "$options": "i"}
-
-        sort_order = None
-        if rating_order == "highLow":
-            sort_order = [("rating", DESCENDING)]
-        elif rating_order == 'lowHigh':
-            sort_order = [("rating", ASCENDING)]
-
-        if sort_order: 
-            filtered_exp = list(experiences.find(query).sort(sort_order))
-        else: 
-            filtered_exp = list(experiences.find(query))
-        
+    if request.method == "POST":
+        filtered_exp = get_filtered_experiences(request.form)  
         return render_template('search.html', experiences = filtered_exp)
 
-    if request.method == "GET": 
-        return render_template('search.html', experiences = list(experiences.find()))
+    filtered_exp = get_filtered_experiences(request.args)
+    return render_template('search.html', experiences = filtered_exp)
+
+def get_filtered_experiences(form_data): 
+    title = form_data.get("title", "").strip()
+    category = form_data.get("category", "").strip()
+    keywords = [k.strip() for k in form_data.get("keyword", "").split(" ") if k.strip()]
+    rating_order = form_data.get("rating", "")
+
+    query = {}
+
+    if title: 
+        query["title"] = {"$regex": title, "$options": "i"}
+
+    if keywords: 
+        keyword_clauses = []
+        for kw in keywords: 
+            regex = {"$regex": kw, "$options": "i"}
+            keyword_clauses.extend([
+                {"title": regex},
+                {"category": regex},
+                {"notes": regex} 
+            ])
+        query["$or"] = keyword_clauses
+
+    if category: 
+        query["category"] = {"$regex": category, "$options": "i"}
+
+    sort_order = None
+    if rating_order == "highLow":
+        sort_order = [("rating", DESCENDING)]
+    elif rating_order == 'lowHigh':
+        sort_order = [("rating", ASCENDING)]
+
+    if sort_order: 
+        results = list(experiences.find(query).sort(sort_order))
+    else: 
+        results = list(experiences.find(query))       
+
+    return results
 
 @app.route('/your_lists')
 def your_lists():

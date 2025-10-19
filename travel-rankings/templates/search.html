@@ -1,20 +1,18 @@
 {% extends "base.html" %}
-
 {% block title %}Search{% endblock %}
+
 {% block content %}
-
-
 <section class="feed">
   <h2>Search</h2>
 
   <form method="POST" enctype="multipart/form-data"  class="filter-bar">
-    <div style="display: flex; align-items: center;">
-      <input id="keyword" name="keyword" placeholder="Search experiences" style="width: 150%">
+    <div style="display: flex; align-items: center; width: 80%">
+      <input id="keyword" name="keyword" placeholder="Search experiences" style="width: 350%">
       <label for="title">Title</label>
-      <input id="title" name="title"> 
+      <input id="title" name="title" style="width: 200%"> 
 
       <label for="category">Category</label>
-          <select id="category" name="category">
+          <select id="category" name="category" style="width: 175%;">
             <option value="" disabled selected></option>
             <option value="City">City</option>
             <option value="Nature">Nature</option>
@@ -27,7 +25,7 @@
 
 
       <label for="rating">Rating</label>
-      <select id="rating" name="rating">
+      <select id="rating" name="rating" style="width: 175%;">
         <option value="" disabled selected></option>
         <option value="highLow">Highest to Lowest</option>
         <option value="lowHigh">Lowest to Highest</option>
@@ -38,7 +36,6 @@
       <button type="submit">Search</button>
     </div>
   </form>
-</section>
   
   <div class="feed-grid">
     {% for exp in experiences %}
@@ -48,7 +45,7 @@
         {% endif %}
         <div class="feed-info">
           <h3>{{ exp.title }}</h3>
-          <p>Ranked #{{ exp.rank }} · "{{ exp.notes }}"</p>
+          <p>"{{ exp.notes }}"</p>
           {% if exp.get('rating') %}
             <p>⭐ {{ exp.rating }}/10</p>
           {% endif %}
@@ -57,8 +54,13 @@
             <button>💬 Comment</button>
           </div>
         </div>
+        <form class='feed-form' action="{{ url_for('feed_to_bucket', id=exp._id|string) }}" method="POST" style="margin-top:10px;">
+            <button type="submit" class="add-bucketlist-button">+</button>
+        </form>
       </div>
     {% endfor %}
   </div>
+
+</section>
 
 {% endblock %}
