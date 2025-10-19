@@ -46,3 +46,7 @@ DB_NAME=your_database_name_here
 cd travel-rankings
 python app.py
 ```
+
+### Demo Login
+Email: test1@mail.com  
+Password: test
