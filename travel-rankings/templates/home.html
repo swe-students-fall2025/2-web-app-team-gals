@@ -12,7 +12,7 @@
         {% endif %}
         <div class="feed-info">
           <h3>{{ exp.title }}</h3>
-          <p>Ranked #{{ exp.rank }} · "{{ exp.notes }}"</p>
+          <p><strong>{{ exp.friend_name }}</strong> ranked #{{ exp.rank }} · "{{ exp.notes }}"</p>
           {% if exp.get('rating') %}
             <p>⭐ {{ exp.rating }}/10</p>
           {% endif %}

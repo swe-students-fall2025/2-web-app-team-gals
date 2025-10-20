@@ -258,6 +258,7 @@ button, .save-btn, .cancel-btn {
 
 button:hover, .save-btn:hover {
   background-color: #1a242f;
+  color: white
 }
 
 .save-btn {
@@ -277,15 +278,47 @@ button:hover, .save-btn:hover {
   transform: translateY(-2px);
 }
 
-.add-bucketlist-button { 
-  width: 35px;
-  height: 35px;
-  padding: 5px;
+.add-bucketlist-button {
+  position: relative;
+  background-color: grey;
+  border: none;
   border-radius: 50%;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 15px;
-  transition: all 0.2s ease;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  color: black;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.add-bucketlist-button::after {
+  content: "Save to Bucket List";
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1a242f;
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+  max-width: 150%; 
+  text-align: center;
+  min-width: max-content;
+}
+/* Show tooltip on hover */
+.add-bucketlist-button:hover::after {
+  opacity: 1;
+}
+
+/* Change button background and + color on hover */
+.add-bucketlist-button:hover {
+  background-color: #1a242f;
+  color: white;
 }
 
 /* ---------------------------- */
