@@ -504,15 +504,14 @@ button:hover, .save-btn:hover {
 .filter-bar { 
   display: flex; 
   align-items: center;
-  gap: 20px;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px; 
-  padding: 30px;
+  padding: 8px;
   max-width: 98.4%;
   margin: 20px 0px;
   height: 20px;
-  justify-content: space-between;
+
 }
 
 .filter-bar input, select, input::placeholder {
@@ -527,7 +526,7 @@ button:hover, .save-btn:hover {
 
 .filter-bar button {
   flex-shrink: 0;
-  padding: 8px 16px;
+  padding: 5px 8px;
   font-size: 14px;
   font-weight: bold;
   color: #fff;
@@ -536,35 +535,28 @@ button:hover, .save-btn:hover {
   border-radius: 6px;
   cursor: pointer;
   transition: 0.2s ease;
+  margin: 0px;
 }
 
 .filter-bar { 
   display: flex; 
   align-items: center;
-  gap: 20px;
 }
 
 /* ---------------------------- */
 /* MOBILE RESPONSIVENESS */
 /* ---------------------------- */
-@media (max-width: 600px) {
-  .filter-bar {
-    flex-direction: column; 
-    max-width: 1200px;
-    align-items: stretch;    
-    gap: 8px;
-    height: auto;          
+@media (max-width: 600px) { 
+  .filter-bar { 
+    flex-direction: column;
+    display: block;
+    align-items: stretch;
+    height: 200%;
+    width: 94%;
   }
 
-  .filter-bar input,
-  .filter-bar select,
   .filter-bar button {
-    width: 100%;
-    margin: 0;
-  }
-
-  .filter-bar label {
-    margin: 0 0 2px 0;
+    margin-top: 7px;
   }
 }
 

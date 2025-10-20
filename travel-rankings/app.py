@@ -52,14 +52,9 @@ def home():
 
     return render_template("home.html", experiences=friends_exps)
 
-# POPULATE FRIENDS FEED
 @app.route("/populate_friends_feed")
 def populate_friends_feed():
     from datetime import datetime, timezone
-
-    if friend_experiences.count_documents({}) > 0:
-        return "Friend feed already populated!"
-    
     friend_experiences.insert_many([
         {
             "title": "Skiing in Alps",
@@ -75,7 +70,7 @@ def populate_friends_feed():
             "category": "Beach",
             "notes": "Caught my first wave!",
             "rating": 9,
-            "picture": None,
+            "picture": "surfing.jpg",
             "friend_name": "Bob",
             "created_at": datetime.now(timezone.utc)
         },
@@ -84,7 +79,7 @@ def populate_friends_feed():
             "category": "Food",
             "notes": "Sushi heaven",
             "rating": 10,
-            "picture": None,
+            "picture": "tokyo.jpg",
             "friend_name": "Charlie",
             "created_at": datetime.now(timezone.utc)
         }
@@ -382,9 +377,9 @@ def get_filtered_experiences(form_data):
         sort_order = [("rating", ASCENDING)]
 
     if sort_order: 
-        results = list(experiences.find(query).sort(sort_order))
+        results = list(friend_experiences.find(query).sort(sort_order))
     else: 
-        results = list(experiences.find(query))       
+        results = list(friend_experiences.find(query))       
 
     return results
 
