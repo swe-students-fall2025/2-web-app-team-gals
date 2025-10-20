@@ -474,7 +474,7 @@ button:hover, .save-btn:hover {
   box-shadow: none;
   background: none;
   padding: 0;
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -508,9 +508,9 @@ button:hover, .save-btn:hover {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px; 
-  width: 98.4%;
+  padding: 30px;
   max-width: 98.4%;
-  margin: 10px 0px;
+  margin: 20px 0px;
   height: 20px;
   justify-content: space-between;
 }
@@ -550,6 +550,7 @@ button:hover, .save-btn:hover {
 @media (max-width: 600px) {
   .filter-bar {
     flex-direction: column; 
+    max-width: 1200px;
     align-items: stretch;    
     gap: 8px;
     height: auto;          
@@ -566,7 +567,6 @@ button:hover, .save-btn:hover {
     margin: 0 0 2px 0;
   }
 }
-
 
 /* ---------------------------- */
 /* SIGN UP PAGE */
