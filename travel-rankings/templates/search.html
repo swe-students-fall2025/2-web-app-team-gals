@@ -5,36 +5,41 @@
 <section class="feed">
   <h2>Search</h2>
 
-  <form method="POST" enctype="multipart/form-data"  class="filter-bar">
-    <div style="display: flex; align-items: center; width: 80%">
-      <input id="keyword" name="keyword" placeholder="Search experiences" style="width: 350%">
+  <form method="POST" enctype="multipart/form-data" class="filter-bar">
+    <div class="filter-item">
+      <label for="keyword">Search</label>
+      <input id="keyword" name="keyword" placeholder="Search experiences">
+    </div>
+
+    <div class="filter-item">
       <label for="title">Title</label>
-      <input id="title" name="title" style="width: 200%"> 
+      <input id="title" name="title">
+    </div>
 
+    <div class="filter-item">
       <label for="category">Category</label>
-          <select id="category" name="category" style="width: 175%;">
-            <option value="" disabled selected></option>
-            <option value="City">City</option>
-            <option value="Nature">Nature</option>
-            <option value="Beach">Beach</option>
-            <option value="Food">Food</option>
-            <option value="Adventure">Adventure</option>
-            <option value="Culture">Culture</option>
-            <option value="Relaxation">Relaxation</option>
-          </select> 
+      <select id="category" name="category">
+        <option value="" disabled selected></option>
+        <option value="City">City</option>
+        <option value="Nature">Nature</option>
+        <option value="Beach">Beach</option>
+        <option value="Food">Food</option>
+        <option value="Adventure">Adventure</option>
+        <option value="Culture">Culture</option>
+        <option value="Relaxation">Relaxation</option>
+      </select>
+    </div>
 
-
+    <div class="filter-item">
       <label for="rating">Rating</label>
-      <select id="rating" name="rating" style="width: 175%;">
+      <select id="rating" name="rating">
         <option value="" disabled selected></option>
         <option value="highLow">Highest to Lowest</option>
         <option value="lowHigh">Lowest to Highest</option>
       </select>
     </div>
 
-    <div>
-      <button type="submit">Search</button>
-    </div>
+    <button type="submit">Search</button>
   </form>
   
  <div class="feed-grid">
@@ -45,8 +50,5 @@
     {% endfor %}
   </div>
 </section>
-{% endblock %}
 
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/feed.js') }}"></script>
 {% endblock %}

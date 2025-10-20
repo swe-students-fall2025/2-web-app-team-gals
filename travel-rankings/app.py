@@ -399,4 +399,8 @@ def your_lists():
 
 
 if __name__ == "__main__":
+    app.config.update(
+        SESSION_COOKIE_SAMESITE=None,  
+        SESSION_COOKIE_SECURE=False    
+    )
     app.run(debug=True)
