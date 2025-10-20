@@ -36,29 +36,22 @@ def api_feed():
     for i, exp in enumerate(all_exp, start=1):
         exp["rank"] = i
     return jsonify(all_exp)
-
 @app.route("/")
 def home():
     if "user_id" not in session:
         return redirect(url_for("login"))
-    
-    # User's own experiences
-    user_exps = list(experiences.find({"user_id": session["user_id"]}))
-    
-    # Friend experiences (exclude current user)
+
+    # Only friend experiences (exclude current user)
     friends_exps = list(friend_experiences.find({"user_id": {"$ne": session["user_id"]}}))
-    
-    # Combine
-    all_exp = user_exps + friends_exps
-    
+
     # Sort by rating descending
-    all_exp.sort(key=lambda x: x.get("rating", 0), reverse=True)
-    
+    friends_exps.sort(key=lambda x: x.get("rating", 0), reverse=True)
+
     # Add rank
-    for i, exp in enumerate(all_exp, start=1):
+    for i, exp in enumerate(friends_exps, start=1):
         exp["rank"] = i
 
-    return render_template("home.html", experiences=all_exp)
+    return render_template("home.html", experiences=friends_exps)
 
 # POPULATE FRIENDS FEED
 @app.route("/populate_friends_feed")
@@ -98,29 +91,6 @@ def populate_friends_feed():
         }
     ])
     return "Friend feed populated!"
-
-# UPDATE FRIEND EXPERIENCES
-@app.route("/update_pictures")
-def update_pictures():
-    from datetime import datetime, timezone
-    
-    # Update existing posts
-    friend_experiences.update_one(
-        {"title": "Skiing in Alps"},
-        {"$set": {"picture": "skiing.jpg"}}
-    )
-    
-    friend_experiences.update_one(
-        {"title": "Surfing in Hawaii"},
-        {"$set": {"picture": "surfing.jpg"}}
-    )
-    
-    friend_experiences.update_one(
-        {"title": "Tokyo Food Tour"},
-        {"$set": {"picture": "tokyo.jpg"}}
-    )
-
-    return "Pictures updated!"
 
 # SIGN UP/LOGIN/AUTHENTICATION
 @app.route("/signup", methods=["GET", "POST"])
