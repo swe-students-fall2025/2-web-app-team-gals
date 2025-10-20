@@ -37,30 +37,16 @@
     </div>
   </form>
   
-  <div class="feed-grid">
+ <div class="feed-grid">
     {% for exp in experiences %}
-      <div class="feed-card">
-        {% if exp.picture %}
-          <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" />
-        {% endif %}
-        <div class="feed-info">
-          <h3>{{ exp.title }}</h3>
-          <p>"{{ exp.notes }}"</p>
-          {% if exp.get('rating') %}
-            <p>⭐ {{ exp.rating }}/10</p>
-          {% endif %}
-          <div class="feed-actions">
-            <button>❤️ Like</button>
-            <button>💬 Comment</button>
-          </div>
-        </div>
-        <form class='feed-form' action="{{ url_for('feed_to_bucket', id=exp._id|string) }}" method="POST" style="margin-top:10px;">
-            <button type="submit" class="add-bucketlist-button">+</button>
-        </form>
-      </div>
+      {% include 'components/feed_card.html' %}
+    {% else %}
+      <p class="no-posts">No experiences found. Try changing your search criteria.</p>
     {% endfor %}
   </div>
-
 </section>
+{% endblock %}
 
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/feed.js') }}"></script>
 {% endblock %}
