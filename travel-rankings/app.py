@@ -41,12 +41,11 @@ def home():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    # Only friend experiences (exclude current user)
-    friends_exps = list(friend_experiences.find({"user_id": {"$ne": session["user_id"]}}))
-
-    # Sort by rating descending
-    friends_exps.sort(key=lambda x: x.get("rating", 0), reverse=True)
-
+    # Friend's experiences
+    friends_exps = list(
+        friend_experiences.find({"user_id": {"$ne": session["user_id"]}})
+        .sort("created_at", -1) 
+    )
     # Add rank
     for i, exp in enumerate(friends_exps, start=1):
         exp["rank"] = i
