@@ -10,25 +10,117 @@
         {% if exp.picture %}
           <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" />
         {% endif %}
+
         <div class="feed-info">
           <h3>{{ exp.title }}</h3>
           <p><strong>{{ exp.friend_name }}</strong> ranked #{{ exp.rank }} · "{{ exp.notes }}"</p>
-          {% if exp.get('rating') %}
+
+          {% if exp.rating is defined %}
             <p>⭐ {{ exp.rating }}/10</p>
           {% endif %}
+
+          <!-- Action Buttons -->
           <div class="feed-actions">
-            <button>❤️ Like</button>
-            <button>💬 Comment</button>
+            <button type="button" class="like-btn">❤️ <span class="like-count">0</span></button>
+            <button type="button" class="comment-btn">💬 Comment</button>
+            <form class="feed-form" action="{{ url_for('feed_to_bucket', id=exp._id) }}" method="POST">
+              <button type="submit" class="add-bucketlist-button">+</button>
+            </form>
+          </div>
+          
+          <!-- Comments section (below buttons) -->
+          <div class="comments-section" style="display: none;">
+            <div class="comments-list"></div>
+            <div class="comment-input-container">
+              <input type="text" class="comment-input" placeholder="Write a comment..." />
+              <button type="button" class="add-comment-btn">Post</button>
+            </div>
           </div>
         </div>
-        <form class='feed-form' action="{{ url_for('feed_to_bucket', id=exp._id|string) }}" method="POST" style="margin-top:10px;">
-          <button type="submit" class="add-bucketlist-button">+</button>
-        </form>
       </div>
     {% else %}
-      <p class="no-posts">No posts from your friends yet! 🌍  
-      Explore and connect to see their latest adventures.</p>
+      <p class="no-posts">No posts from your friends yet! 🌍 Explore and connect to see their latest adventures.</p>
     {% endfor %}
   </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.feed-card').forEach(card => {
+    const likeBtn = card.querySelector('.like-btn');
+    const likeCount = card.querySelector('.like-count');
+    const commentBtn = card.querySelector('.comment-btn');
+    const commentsSection = card.querySelector('.comments-section');
+    const addCommentBtn = card.querySelector('.add-comment-btn');
+    const commentInput = card.querySelector('.comment-input');
+    const commentsList = card.querySelector('.comments-list');
+
+    let liked = false;
+
+    likeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      let count = parseInt(likeCount.textContent);
+
+      if (!liked) {
+        liked = true;
+        count++;
+        likeBtn.classList.add('liked');
+        likeBtn.innerHTML = `❤️<span class="like-count">${count}</span>`;
+      } else {
+        liked = false;
+        count = Math.max(0, count - 1); 
+        likeBtn.classList.remove('liked');
+        likeBtn.innerHTML = `❤️<span class="like-count">${count}</span>`;
+      }
+    });
+
+    commentBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      commentsSection.style.display = commentsSection.style.display === 'none' ? 'flex' : 'none';
+      commentInput.focus();
+    });
+
+    const addComment = () => {
+      const text = commentInput.value.trim();
+      if (text) {
+        const commentDiv = document.createElement('div');
+        commentDiv.classList.add('comment');
+
+        const usernameSpan = document.createElement('span');
+        usernameSpan.classList.add('comment-username');
+        usernameSpan.textContent = 'You: ';
+
+        const textSpan = document.createElement('span');
+        textSpan.classList.add('comment-text');
+        textSpan.textContent = text;
+
+        const timeSpan = document.createElement('span');
+        timeSpan.classList.add('comment-time');
+        timeSpan.textContent = ' • just now';
+
+        commentDiv.appendChild(usernameSpan);
+        commentDiv.appendChild(textSpan);
+        commentDiv.appendChild(timeSpan);
+
+        commentsList.appendChild(commentDiv);
+        commentInput.value = '';
+      }
+    };
+
+    addCommentBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      addComment();
+    });
+
+    commentInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addComment();
+      }
+    });
+  });
+});
+</script>
 {% endblock %}
