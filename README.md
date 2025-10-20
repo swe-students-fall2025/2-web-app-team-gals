@@ -10,6 +10,8 @@ Our vision is to enhance the way people share and discover travel experiences by
 
 [Link to User Stories as Issues](https://github.com/swe-students-fall2025/2-web-app-team-gals/issues)
 
+All user stories marked as "Won't fix" or "Not Planned" are outdated and not our final user stories (unable to delete). View final user stories on the task boards, and in issues.
+
 ## Steps necessary to run the software
 
 See instructions. Delete this line and place instructions to download, configure, and run the software here.
@@ -55,13 +57,13 @@ python3 --version
 
 ### 3. Install Python dependencies
 ```
-pipenv install -r requirements.txt
+pipenv run pip3 install -r requirements.txt
 ```
 ### 4. Create a .env file
 Create a .env file in the root of the project and add your MongoDB credentials:
 ```
-MONGO_URI=your_mongodb_uri_here
-DB_NAME=your_database_name_here
+MONGO_URI=mongodb+srv://aoh2024_db_user:6yrjkHaTdaJYk4Gu@cluster0.snrovyb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+DB_NAME=travel-rankings
 ```
 ### 5. Run the Flask application
 ```
