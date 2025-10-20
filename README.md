@@ -31,6 +31,28 @@ cd 2-web-app-team-gals
 pip install pipenv
 pipenv shell
 ```
+### Note:
+If you get an error saying  
+```
+Python version range specifier '>=3.8' is not supported
+```
+open the **`Pipfile`** and replace  
+```
+python_version = ">=3.8"
+```
+with your exact Python version, for example:  
+```
+python_version = "3.9"
+```
+or  
+```
+python_version = "3.10"
+```
+You can check your Python version by running:
+```bash
+python3 --version
+```
+
 ### 3. Install Python dependencies
 ```
 pipenv install -r requirements.txt
