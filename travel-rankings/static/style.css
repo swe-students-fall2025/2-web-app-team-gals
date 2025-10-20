@@ -474,7 +474,7 @@ button:hover, .save-btn:hover {
   box-shadow: none;
   background: none;
   padding: 0;
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -508,10 +508,9 @@ button:hover, .save-btn:hover {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px; 
-  padding: 10px 10px;
-  width: 98.4%;
+  padding: 30px;
   max-width: 98.4%;
-  margin: 10px 0px;
+  margin: 20px 0px;
   height: 20px;
   justify-content: space-between;
 }
@@ -526,12 +525,17 @@ button:hover, .save-btn:hover {
   margin: 9px 0px;
 }
 
-.filter-bar button { 
-  align-items: right;
-  justify-content: center;
-  margin: 5px 2px;
-  font-size: 12px;
-  padding: 6px;
+.filter-bar button {
+  flex-shrink: 0;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #2c3e50;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .filter-bar { 
@@ -540,6 +544,29 @@ button:hover, .save-btn:hover {
   gap: 20px;
 }
 
+/* ---------------------------- */
+/* MOBILE RESPONSIVENESS */
+/* ---------------------------- */
+@media (max-width: 600px) {
+  .filter-bar {
+    flex-direction: column; 
+    max-width: 1200px;
+    align-items: stretch;    
+    gap: 8px;
+    height: auto;          
+  }
+
+  .filter-bar input,
+  .filter-bar select,
+  .filter-bar button {
+    width: 100%;
+    margin: 0;
+  }
+
+  .filter-bar label {
+    margin: 0 0 2px 0;
+  }
+}
 
 /* ---------------------------- */
 /* SIGN UP PAGE */
