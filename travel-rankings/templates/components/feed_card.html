@@ -1,0 +1,37 @@
+<!-- FEED CARD -->
+<div class="feed-card">
+  {% if exp.picture %}
+    <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}" />
+  {% endif %}
+
+  <div class="feed-info">
+    <h3>{{ exp.title }}</h3>
+    {% if exp.friend_name %}
+      <p><strong>{{ exp.friend_name }}</strong> ranked #{{ exp.rank }} · "{{ exp.notes }}"</p>
+    {% else %}
+      <p>"{{ exp.notes }}"</p>
+    {% endif %}
+
+    {% if exp.rating is defined %}
+      <p>⭐ {{ exp.rating }}/10</p>
+    {% endif %}
+
+    <!-- Action Buttons -->
+    <div class="feed-actions">
+      <button type="button" class="like-btn">❤️ <span class="like-count">0</span></button>
+      <button type="button" class="comment-btn">💬 Comment</button>
+      <form class="feed-form" action="{{ url_for('feed_to_bucket', id=exp._id) }}" method="POST">
+        <button type="submit" class="add-bucketlist-button">+</button>
+      </form>
+    </div>
+    
+    <!-- Comments section -->
+    <div class="comments-section" style="display: none;">
+      <div class="comments-list"></div>
+      <div class="comment-input-container">
+        <input type="text" class="comment-input" placeholder="Write a comment..." />
+        <button type="button" class="add-comment-btn">Post</button>
+      </div>
+    </div>
+  </div>
+</div>
