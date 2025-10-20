@@ -1,6 +1,6 @@
 /* Feed section styling */
 .feed {
-  padding: 2rem;
+  padding: 1rem 2rem 2rem 2rem;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -76,13 +76,13 @@
   cursor: pointer;
   font-size: 0.9rem;
   transition: background 0.2s;
-  background-color: grey;
+  background-color: lightgrey;
   color: white;
 }
 
 /* Like button specific */
 .feed-actions .like-btn {
-  background-color: grey; /* default grey */
+  background-color: lightgrey; /* default grey */
 }
 .feed-actions .like-btn:hover {
   background-color: #ff6b6b; /* red only on hover */
@@ -101,12 +101,12 @@
 
 /* Bucketlist button specific */
 .feed-actions .feed-form button.add-bucketlist-button {
-  background-color: grey;
+  background-color: lightgrey;
   border: none;
-  border-radius: 6px;        
+  border-radius: 6px;     
+  height: 34px;   
   font-size: 0.9rem;
-  line-height: 1;             
-  height: 34px;               
+  line-height: 1;                          
   display: flex;
   align-items: center;
   justify-content: center;

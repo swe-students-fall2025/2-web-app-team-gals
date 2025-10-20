@@ -5,32 +5,30 @@
 <section class="feed">
   <h2>Search</h2>
 
-  <form method="POST" enctype="multipart/form-data" class="filter-bar">
-    <div class="filter-item">
-      <label for="keyword">Search</label>
+  <form method="POST" enctype="multipart/form-data"  class="filter-bar">
+    <div style="display: flex; align-items: center;"> 
       <input id="keyword" name="keyword" placeholder="Search experiences">
     </div>
 
-    <div class="filter-item">
+    <div style="display: flex; align-items: center;">
       <label for="title">Title</label>
-      <input id="title" name="title">
+      <input id="title" name="title" style="width: 150%"> 
     </div>
 
-    <div class="filter-item">
+    <div style="display: flex; align-items: center;">
       <label for="category">Category</label>
-      <select id="category" name="category">
-        <option value="" disabled selected></option>
-        <option value="City">City</option>
-        <option value="Nature">Nature</option>
-        <option value="Beach">Beach</option>
-        <option value="Food">Food</option>
-        <option value="Adventure">Adventure</option>
-        <option value="Culture">Culture</option>
-        <option value="Relaxation">Relaxation</option>
-      </select>
-    </div>
+        <select id="category" name="category">
+          <option value="" disabled selected></option>
+          <option value="City">City</option>
+          <option value="Nature">Nature</option>
+          <option value="Beach">Beach</option>
+          <option value="Food">Food</option>
+          <option value="Adventure">Adventure</option>
+          <option value="Culture">Culture</option>
+          <option value="Relaxation">Relaxation</option>
+        </select> 
+  
 
-    <div class="filter-item">
       <label for="rating">Rating</label>
       <select id="rating" name="rating">
         <option value="" disabled selected></option>
@@ -39,7 +37,9 @@
       </select>
     </div>
 
-    <button type="submit">Search</button>
+    <div style="margin-left:auto">
+      <button type="submit">Search</button>
+    </div>
   </form>
   
  <div class="feed-grid">
