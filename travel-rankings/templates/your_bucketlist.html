@@ -2,23 +2,23 @@
 
 {% block title %}Your Lists{% endblock %}
 {% block content %}
-<a href="{{ url_for('your_lists') }}">
-  <button type="button">Your Experiences</button>
-</a>
+<a href="{{ url_for('your_lists') }}">← My Experiences</a>
 
-<h1>Your Bucketlist</h1>
+<h1>My Bucketlist</h1>
 
 <!-- Add new experience -->
-<a href="{{ url_for('add_bucketlist') }}" class="add-btn">Add To Your Bucketlist</a>
-<hr>
+<div class="add-exp-container">
+  <a href="{{ url_for('add_bucketlist', next=url_for('your_bucketlist')) }}" class="btn">+ Add Bucketlist</a>
+
+</div>
 
 <div class="experience-grid">
   {% for exp in bucketList %}
   <div class="experience">
     <h3>#{{ exp.rank }} — {{ exp.title }}</h3>
     <p><strong>Category:</strong> {{ exp.category }}</p>
-    <p>{{ exp.notes }}</p>
     <p><strong>Rating:</strong> {{ exp.rating }}</p>
+    <p>{{ exp.notes }}</p>
 
     {% if exp.picture %}
       <img src="{{ url_for('static', filename='uploads/' ~ exp.picture) }}" alt="{{ exp.title }}">
@@ -34,7 +34,7 @@
       <a href="{{ url_for('edit_bucketlist', id=exp._id|string) }}">
         <button class="edit-btn" type="button">Edit</button>
       </a>
-      <a href="{{ url_for('delete_bucketlist', id=exp._id|string) }}" onclick="return confirm('Are you sure?');">
+      <a href="{{ url_for('delete_bucketlist', id=exp._id|string, next='your_bucketlist') }}" onclick="return confirm('Are you sure?');">
         <button class="delete-btn" type="button">Delete</button>
       </a>
     </div>

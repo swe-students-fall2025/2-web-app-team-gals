@@ -82,7 +82,17 @@ def populate_friends_feed():
             "picture": "tokyo.jpg",
             "friend_name": "Charlie",
             "created_at": datetime.now(timezone.utc)
-        }
+        },
+        {
+            "title": "Outhouse Orchards",
+            "category": "Nature",
+            "notes": "Smells like apples!",
+            "rating": 8.6,
+            "picture": "outhouse_orchards.jpeg",
+            "friend_name": "Amy",
+            "created_at": datetime.now(timezone.utc)
+        },
+
     ])
     return "Friend feed populated!"
 
@@ -187,7 +197,7 @@ def edit_experience(id):
     if not exp:
         return "Experience not found", 404
 
-    next_page = request.args.get("next", request.form.get("next", "profile"))
+    next_page = request.args.get("next", request.form.get("next", "your_lists"))
 
     if request.method == "POST":
         if "cancel" in request.form:
@@ -217,7 +227,9 @@ def edit_experience(id):
 def delete_experience(id):
     if "user_id" not in session:
         return redirect(url_for("login"))
+    print(request.args)
     next_page = request.args.get('next', 'profile')
+    print(next_page)
     experiences.delete_one({"_id": ObjectId(id)})
     return redirect(url_for(next_page))
 

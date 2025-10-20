@@ -10,12 +10,7 @@
   </div>
 </div>
 
-<div class="add-exp-container">
-  <a href="{{ url_for('add_experience', next=url_for('profile')) }}" class="btn">+ Add Experience</a>
-
-</div>
-
-<h3 class="exp-header" style="text-align:center;">Your Experiences (Newest First)</h3>
+<h3 class="exp-header" style="text-align:center; margin-top: 40px;">Your Latest Experiences</h3>
 
 {% if experiences %}
 <div class="experience-grid">
