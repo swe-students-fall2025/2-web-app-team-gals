@@ -258,6 +258,7 @@ button, .save-btn, .cancel-btn {
 
 button:hover, .save-btn:hover {
   background-color: #1a242f;
+  color: white
 }
 
 .save-btn {
@@ -277,15 +278,54 @@ button:hover, .save-btn:hover {
   transform: translateY(-2px);
 }
 
-.add-bucketlist-button { 
-  width: 35px;
-  height: 35px;
-  padding: 5px;
+.add-bucketlist-button {
+  position: relative;
+  background-color: grey;
+  border: none;
   border-radius: 50%;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 15px;
-  transition: all 0.2s ease;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  color: black;
+  font-size: 1rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.feed-card {
+  position: relative;
+  overflow: visible; /* tooltip can show outside button but not outside card */
+}
+
+.add-bucketlist-button::after {
+  content: "Save to bucketlist";
+  position: absolute;
+  bottom: 125%;
+  left: 50%;  
+  transform: translateX(-50%);
+  background-color: #1a242f;
+  color: white;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;        
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 100;
+
+  max-width: max-content; 
+  overflow: visible;              
+}
+
+/* Show tooltip on hover */
+.add-bucketlist-button:hover::after {
+  opacity: 1;
+}
+
+/* Change button background and + color on hover */
+.add-bucketlist-button:hover {
+  background-color: #1a242f;
+  color: white;
 }
 
 /* ---------------------------- */
@@ -319,7 +359,7 @@ button:hover, .save-btn:hover {
 .btn-login {
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 10px
   background-color: #2c3e50;
   color: white;
   border: none;
@@ -456,7 +496,6 @@ button:hover, .save-btn:hover {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 10px;
 }
 
 /* ---------------------------- */

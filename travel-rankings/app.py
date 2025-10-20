@@ -60,16 +60,21 @@ def home():
 
     return render_template("home.html", experiences=all_exp)
 
+# POPULATE FRIENDS FEED
 @app.route("/populate_friends_feed")
 def populate_friends_feed():
     from datetime import datetime, timezone
+
+    if friend_experiences.count_documents({}) > 0:
+        return "Friend feed already populated!"
+    
     friend_experiences.insert_many([
         {
             "title": "Skiing in Alps",
             "notes": "Snow was perfect!",
             "category": "Adventure",
             "rating": 10,
-            "picture": None,
+            "picture": "skiing.jpg",
             "friend_name": "Alice",
             "created_at": datetime.now(timezone.utc)
         },
@@ -93,6 +98,29 @@ def populate_friends_feed():
         }
     ])
     return "Friend feed populated!"
+
+# UPDATE FRIEND EXPERIENCES
+@app.route("/update_pictures")
+def update_pictures():
+    from datetime import datetime, timezone
+    
+    # Update existing posts
+    friend_experiences.update_one(
+        {"title": "Skiing in Alps"},
+        {"$set": {"picture": "skiing.jpg"}}
+    )
+    
+    friend_experiences.update_one(
+        {"title": "Surfing in Hawaii"},
+        {"$set": {"picture": "surfing.jpg"}}
+    )
+    
+    friend_experiences.update_one(
+        {"title": "Tokyo Food Tour"},
+        {"$set": {"picture": "tokyo.jpg"}}
+    )
+
+    return "Pictures updated!"
 
 # SIGN UP/LOGIN/AUTHENTICATION
 @app.route("/signup", methods=["GET", "POST"])

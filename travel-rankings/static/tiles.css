@@ -1,71 +1,190 @@
 /* Feed section styling */
 .feed {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-  /* Grid layout for cards */
-  .feed-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 1.5rem;
-  }
+/* Grid layout for cards */
+.feed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
 
-  /* Individual card */
-  .feed-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
+/* Individual card */
+.feed-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: visible;
+  transition: transform 0.2s, box-shadow 0.2s;
+  padding-bottom: 1rem;
+}
 
-  .feed-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.15);
-  }
+.feed-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+}
 
-  /* Image in card */
-  .feed-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
+/* Image in card */
+.feed-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
 
-  /* Card content */
-  .feed-info {
-    padding: 1rem;
-  }
+/* Card content */
+.feed-info {
+  padding: 1rem;
+}
 
-  .feed-info h3 {
-    margin: 0 0 0.5rem 0;
-    font-size: 1.1rem;
-  }
+.feed-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+}
 
-  .feed-info p {
-    margin: 0.3rem 0;
-    font-size: 0.95rem;
-    color: #555;
-  }
+.feed-info p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+  color: #555;
+}
 
-  /* Actions buttons */
-  .feed-actions {
-    margin-top: 0.8rem;
-    display: flex;
-    gap: 0.5rem;
-  }
+/* Actions buttons container */
+.feed-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
 
-  .feed-actions button {
-    border: none;
-    background: grey;
-    padding: 0.5rem 0.8rem;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.9rem;
-    transition: background 0.2s;
-  }
+/* Make the form inline to align with buttons */
+.feed-actions .feed-form {
+  display: inline-flex;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
 
-  .feed-actions button:hover {
-    background: #e0e0e0;
-  }
+/* Common button styles */
+.feed-actions button {
+  border: none;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  background-color: grey;
+  color: white;
+}
+
+/* Like button specific */
+.feed-actions .like-btn {
+  background-color: grey; /* default grey */
+}
+.feed-actions .like-btn:hover {
+  background-color: #ff6b6b; /* red only on hover */
+  color: white;
+}
+.feed-actions .like-btn.liked {
+  background-color: #ff2e2e; /* permanently red if liked */
+  color: white;
+}
+
+/* Other buttons hover */
+.feed-actions button:not(.like-btn):hover {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+/* Bucketlist button specific */
+.feed-actions .feed-form button.add-bucketlist-button {
+  background-color: grey;
+  border: none;
+  border-radius: 6px;        
+  font-size: 0.9rem;
+  line-height: 1;             
+  height: 34px;               
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.feed-actions .feed-form button.add-bucketlist-button:hover {
+  background-color: #e0e0e0;
+  color: black;
+}
+
+/* Comments section */
+.comments-section {
+  display: none; /* hidden initially */
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px; /* always below buttons */
+  width: 100%;
+}
+
+/* Comment input + post button container */
+.comment-input-container {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+/* Comment input field */
+.comment-input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Post button */
+.add-comment-btn {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #4a90e2;
+  color: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.add-comment-btn:hover {
+  background-color: #357ab8;
+}
+
+/* Comments list */
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+}
+
+/* Individual comment styling */
+.comment {
+  background-color: #f0f0f0;
+  padding: 6px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 90%;
+}
+
+.comment-username {
+  font-weight: bold;
+  color: #333;
+}
+
+.comment-text {
+  color: #555;
+}
+
+.comment-time {
+  font-size: 11px;
+  color: #888;
+}
