@@ -2,8 +2,9 @@
 {% block title %}Feed{% endblock %}
 
 {% block content %}
+<h1>For You</h1>
+
 <section class="feed">
-  <h2>For You</h2>
   <div class="feed-grid">
     {% for exp in experiences %}
       {% include 'components/feed_card.html' %}

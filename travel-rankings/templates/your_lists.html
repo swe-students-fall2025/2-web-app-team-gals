@@ -4,15 +4,16 @@
 
 {% block content %}
 <!-- Navigation link to bucketlist -->
-<a href="{{ url_for('your_bucketlist') }}">
-  <button type="button">Your Bucketlist</button>
-</a>
+<a href="{{ url_for('your_bucketlist') }}">My Bucketlist →</a>
 
-<h2>My Travel Experiences</h2>
+
+<h1>My Travel Experiences</h1>
 
 <!-- Add new experience -->
-<a href="{{ url_for('add_experience') }}" class="add-btn">Add New Experience</a>
-<hr>
+<div class="add-exp-container">
+  <a href="{{ url_for('add_experience', next=url_for('your_lists')) }}" class="btn">+ Add Experience</a>
+</div>
+
 
 <div class="experience-grid">
   {% for exp in experiences %}
@@ -30,7 +31,7 @@
         <a href="{{ url_for('edit_experience', id=exp._id|string) }}">
           <button class="edit-btn" type="button">Edit</button>
         </a>
-        <a href="{{ url_for('delete_experience', id=exp._id|string) }}" onclick="return confirm('Are you sure?');">
+        <a href="{{ url_for('delete_experience', id=exp._id|string, next='your_lists') }}" onclick="return confirm('Are you sure?');">
           <button class="delete-btn" type="button">Delete</button>
         </a>
       </div>

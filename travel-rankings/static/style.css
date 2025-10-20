@@ -99,7 +99,7 @@ nav a:hover {
 /* ---------------------------- */
 .add-exp-container {
   text-align: center;
-  margin: 20px 0 3rem;
+  margin: 20px 0 0;
 }
 
 .add-exp-container .btn {
@@ -516,12 +516,12 @@ button:hover, .save-btn:hover {
 
 .filter-bar input, select, input::placeholder {
   padding: 3px;
-  margin: 5px 15px 5px 4px;
+  margin: 5px 15px 5px 0px;
 }
 
 .filter-bar label { 
   font-size: 12px; 
-  margin: 9px 0px;
+  margin: 9px 5px;
 }
 
 .filter-bar button {
@@ -544,7 +544,7 @@ button:hover, .save-btn:hover {
 }
 
 /* ---------------------------- */
-/* MOBILE RESPONSIVENESS */
+/* SEARCH MOBILE RESPONSIVENESS */
 /* ---------------------------- */
 @media (max-width: 600px) { 
   .filter-bar { 
@@ -672,4 +672,54 @@ button:hover, .save-btn:hover {
 
 .title a:hover {
   color: #1a242f;
+}
+
+.lists button {
+  flex-shrink: 0;
+  padding: 5px 8px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #2c3e50;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin: 0px;
+}
+
+@media (max-width: 900px) {
+  .form-container {
+    max-width: 100%;        /* full screen width */
+    margin: 0;              /* remove side gaps */
+    border-radius: 0;       /* edge-to-edge form */
+    padding: 20px;          /* still keep some padding */
+    min-height: 100vh;      /* fill full mobile screen */
+  }
+
+  .experience-form {
+    width: 100%;
+  }
+
+  .experience-form input,
+  .experience-form select,
+  .experience-form textarea,
+  .experience-form button,
+  .experience-form label {
+    font-size: 1.1rem;      /* make text larger */
+    padding: 10px;          /* more touch-friendly */
+  }
+
+  .form-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .save-btn,
+  .cancel-btn {
+    text-align: center;
+    padding: 12px;
+    font-size: 1.1rem;
+  }
 }

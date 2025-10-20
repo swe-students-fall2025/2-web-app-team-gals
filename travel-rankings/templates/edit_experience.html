@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Edit Experience</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-  <div class="form-container">
-    <h1 class="title">Edit Experience</h1>
+{% extends "base.html" %}
 
-    <form method="POST" enctype="multipart/form-data" class="experience-form">
-      <label>Title:</label>
-      <input name="title" value="{{ exp.title }}" required>
+{% block title %}Edit Experience{% endblock %}
+{% block content %}
+  <h1>Edit Experience</h1>
 
-      <label>Picture:</label>
+  <a href="{{ url_for('your_lists') }}">← Back to Your List</a>
+  <hr>
 
-      {% if exp.picture %}
+  <form method="POST" enctype="multipart/form-data" class="form">
+    <label>Title:</label>
+    <input name="title" value="{{ exp.title }}" required>
+
+    <label for="picture">Picture:</label><br>
+    {% if exp.picture %}
         <div class="image-preview">
           <img src="{{ url_for('static', filename='uploads/' + exp.picture) }}" alt="Experience Image">
           <p class="current-photo-text">Current photo — upload a new one to replace it:</p>
@@ -23,25 +20,26 @@
         </div>
       {% else %}
         <input type="file" name="picture" accept="image/*">
-      {% endif %}
+    {% endif %}
 
-      <label>Category:</label>
-      <select name="category" required>
-        <option value="" disabled {% if not exp.category %}selected{% endif %}>Select a category</option>
-        <option value="City" {% if exp.category == "City" %}selected{% endif %}>City</option>
-        <option value="Nature" {% if exp.category == "Nature" %}selected{% endif %}>Nature</option>
-        <option value="Beach" {% if exp.category == "Beach" %}selected{% endif %}>Beach</option>
-        <option value="Food" {% if exp.category == "Food" %}selected{% endif %}>Food</option>
-        <option value="Adventure" {% if exp.category == "Adventure" %}selected{% endif %}>Adventure</option>
-        <option value="Culture" {% if exp.category == "Culture" %}selected{% endif %}>Culture</option>
-        <option value="Relaxation" {% if exp.category == "Relaxation" %}selected{% endif %}>Relaxation</option>
-        <option value="Other" {% if exp.category == "Other" %}selected{% endif %}>Other</option>
-      </select>
+    <label for="category">Category:</label><br>
+    <select name="category" required>
+      <option value="" disabled {% if not exp.category %}selected{% endif %}>Select a category</option>
+      <option value="City" {% if exp.category == "City" %}selected{% endif %}>City</option>
+      <option value="Nature" {% if exp.category == "Nature" %}selected{% endif %}>Nature</option>
+      <option value="Beach" {% if exp.category == "Beach" %}selected{% endif %}>Beach</option>
+      <option value="Food" {% if exp.category == "Food" %}selected{% endif %}>Food</option>
+      <option value="Adventure" {% if exp.category == "Adventure" %}selected{% endif %}>Adventure</option>
+      <option value="Culture" {% if exp.category == "Culture" %}selected{% endif %}>Culture</option>
+      <option value="Relaxation" {% if exp.category == "Relaxation" %}selected{% endif %}>Relaxation</option>
+      <option value="Other" {% if exp.category == "Other" %}selected{% endif %}>Other</option>
+    </select><br>
 
-      <label>Notes:</label>
-      <textarea name="notes">{{ exp.notes }}</textarea>
 
-      <label>Rating (0–10):</label>
+    <label>Notes:</label>
+    <textarea name="notes">{{ exp.notes }}</textarea>
+
+    <label>Rating (0–10):</label>
       <input 
         type="number" 
         name="rating" 
@@ -54,9 +52,8 @@
 
       <div class="form-buttons">
         <button type="submit" class="save-btn">Save Changes</button>
-        <a href="{{ url_for('profile') }}" class="cancel-btn">Cancel</a>
+        <a href="{{ url_for('your_lists') }}" class="cancel-btn">Cancel</a>
       </div>
-    </form>
-  </div>
-</body>
-</html>
+  </form>
+{% endblock %}
+
